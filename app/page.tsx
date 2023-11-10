@@ -1,3 +1,4 @@
+import Searchbar from "@/components/Searchbar";
 import Image from "next/image";
 
 const Home = () => {
@@ -23,7 +24,8 @@ const Home = () => {
                      Effortless tracking, smart analytics. Unlock savings at
                      your fingertips.
                   </p>
-                  // TODO: Search bar
+
+                  <Searchbar />
                </div>
             </div>
          </section>
