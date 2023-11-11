@@ -1,3 +1,5 @@
+import { PriceHistory } from "@/types";
+
 // Extract and return the price
 export function extractPrice(...elements: any) {
    for (const element of elements) {
@@ -44,4 +46,38 @@ export function extractDescription($: any) {
    }
 
    return "";
+}
+
+// Check the price history for the highest
+export function checkHighestPrice(priceHistory: PriceHistory[]) {
+   let highestPrice = priceHistory[0];
+
+   for (let i = 0; i < priceHistory.length; i++) {
+      if (priceHistory[i].price > highestPrice.price) {
+         highestPrice = priceHistory[i];
+      }
+   }
+
+   return highestPrice.price;
+}
+
+// Check the price history for the lowest
+export function checkLowestPrice(priceHistory: PriceHistory[]) {
+   let lowestPrice = priceHistory[0];
+
+   for (let i = 0; i < priceHistory.length; i++) {
+      if (priceHistory[i].price < lowestPrice.price) {
+         lowestPrice = priceHistory[i];
+      }
+   }
+
+   return lowestPrice.price;
+}
+
+// Calculate the average price
+export function getAveragePrice(priceHistory: PriceHistory[]) {
+   const sum = priceHistory.reduce((acc, curr) => acc + curr.price, 0);
+   const average = sum / priceHistory.length;
+
+   return average;
 }
