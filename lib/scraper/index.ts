@@ -69,7 +69,7 @@ export async function scrapeAmazonProduct(url: string) {
          category: "category", //TODO: add category
          numberOfReviews: 0, //TODO: add reviews
          rating: 0, //TODO: add rating
-         description: "No description available",
+         description,
          isOutOfStock: outOfStock,
          currentPrice: Number(currentPrice) || Number(originalPrice),
          originalPrice: Number(originalPrice) || Number(currentPrice),

@@ -75,3 +75,21 @@ export async function getAllProducts() {
       console.log(error);
    }
 }
+
+export async function getRecomendedProducts(productID: string) {
+   try {
+      connectToDatabase();
+
+      const currentProduct = await Product.findById(productID);
+
+      if (!currentProduct) return null;
+
+      const recomendedProducts = await Product.find({
+         _id: { $ne: productID },
+      }).limit(3);
+
+      return recomendedProducts;
+   } catch (error) {
+      console.log(error);
+   }
+}
