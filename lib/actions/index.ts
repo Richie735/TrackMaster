@@ -25,9 +25,7 @@ export async function scrapeAndSaveProduct(productUrl: string) {
       if (existingProduct) {
          const updatedPriceHistory: any = [
             ...existingProduct.priceHistory,
-            {
-               price: scrapedProduct.currentPrice,
-            },
+            { price: scrapedProduct.currentPrice },
          ];
 
          product = {
@@ -37,16 +35,17 @@ export async function scrapeAndSaveProduct(productUrl: string) {
             lowestPrice: checkLowestPrice(updatedPriceHistory),
             averagePrice: getAveragePrice(updatedPriceHistory),
          };
-
-         const newProduct = await Product.findOneAndUpdate(
-            { url: scrapedProduct.url },
-            product,
-            { upsert: true, new: true }
-         );
-
-         revalidatePath(`/products/${newProduct._id}`);
       }
+
+      const newProduct = await Product.findOneAndUpdate(
+         { url: scrapedProduct.url },
+         product,
+         { upsert: true, new: true }
+      );
+
+      revalidatePath(`/products/${newProduct._id}`);
    } catch (error: any) {
+      console.error(`Failed to create/update product: ${error.message}`);
       throw new Error(`Failed to create/update product: ${error.message}`);
    }
 }
@@ -60,6 +59,18 @@ export async function getProductById(productId: string) {
       if (!product) return null;
 
       return product;
+   } catch (error) {
+      console.log(error);
+   }
+}
+
+export async function getAllProducts() {
+   try {
+      connectToDatabase();
+
+      const products = await Product.find({});
+
+      return products;
    } catch (error) {
       console.log(error);
    }

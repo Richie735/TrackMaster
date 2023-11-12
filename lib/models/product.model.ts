@@ -24,6 +24,7 @@ const productSchema = new mongoose.Schema(
       averagePrice: { type: Number },
       discountRate: { type: Number },
       users: [{ email: { type: String, required: true } }],
+      default: [],
    },
    { timestamps: true }
 );

@@ -64,12 +64,12 @@ export async function scrapeAmazonProduct(url: string) {
       const data = {
          url,
          currency: currency || "€",
-         images: imageUrls[0],
+         image: imageUrls[0],
          title,
          category: "category", //TODO: add category
          numberOfReviews: 0, //TODO: add reviews
          rating: 0, //TODO: add rating
-         description,
+         description: "No description available",
          isOutOfStock: outOfStock,
          currentPrice: Number(currentPrice) || Number(originalPrice),
          originalPrice: Number(originalPrice) || Number(currentPrice),
@@ -82,6 +82,6 @@ export async function scrapeAmazonProduct(url: string) {
 
       return data;
    } catch (error: any) {
-      throw new Error("Failed to scrape product: ${error.message}");
+      console.log(error);
    }
 }
